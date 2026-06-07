@@ -1,0 +1,43 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Aerospace Engineering Portfolio">
+  
+  <header class="hero">
+    <h1 class="title">Jon Fueston</h1>
+    <h2 class="subtitle">Aerospace Engineering | Honors College</h2>
+    <p class="bio">
+      Bridging the gap between theoretical physics and functional hardware. My work focuses on rigid body dynamics, experimental aerodynamics, and building embedded hardware-in-the-loop test systems.
+    </p>
+  </header>
+
+  <hr class="divider" />
+
+  <section class="featured">
+    <h3>Featured Project</h3>
+    <div class="featured-card">
+      <div class="featured-content">
+        <h4>Dynamics & Stability of Spacecraft Attitude Systems</h4>
+        <p>A comprehensive computational analysis of rigid body stability in orbit. This project involved simulating 3-1-3 Euler angle sequences, tracking angular velocity vectors, and resolving complex vector projection constraints.</p>
+        <a href="/academics" class="btn">Read the Case Study &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Page-Specific CSS only! */
+  .hero { margin-bottom: 2rem; }
+  .title { font-size: 3rem; margin-bottom: 0.2rem; letter-spacing: -0.05rem; }
+  .subtitle { font-size: 1.25rem; color: var(--accent); font-weight: 500; margin-top: 0; }
+  .bio { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; }
+
+  .featured-card { background: var(--card-bg); border: 1px solid #dee2e6; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+  .featured-card h4 { margin-top: 0; font-size: 1.5rem; }
+  .featured-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+  .btn { display: inline-block; background: var(--accent); color: white; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  .btn:hover { background: #004494; }
+</style>

@@ -1,0 +1,61 @@
+---
+// src/layouts/Layout.astro
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Jon Fueston</title>
+  </head>
+  <body>
+    
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">JF.</a>
+        <div class="nav-links">
+          <a href="/academics">Academic Work</a>
+          <a href="/lab-bench">The Lab Bench</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <slot /> 
+    </main>
+
+  </body>
+</html>
+
+<style is:global>
+  /* --- GLOBAL CSS --- */
+  :root {
+    --bg-color: #f8f9fa;
+    --text-main: #212529;
+    --text-muted: #495057;
+    --accent: #0056b3;
+    --card-bg: #ffffff;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+  /* Navigation Styles */
+  .navbar { background: var(--card-bg); border-bottom: 1px solid #dee2e6; padding: 1rem 0; }
+  .nav-container { max-width: 800px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--text-main); }
+  .nav-links a { margin-left: 1.5rem; text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Layout */
+  .container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+  
+  /* Shared Typography & Elements */
+  .divider { border: 0; height: 1px; background: #dee2e6; margin: 3rem 0; }
+</style>
