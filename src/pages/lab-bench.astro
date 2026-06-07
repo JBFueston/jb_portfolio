@@ -1,7 +1,73 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
+
 <Layout title="The Lab Bench">
-  <h1>The Lab Bench</h1>
-  <p>Active builds, hardware integration, and personal experiments.</p>
+  
+  <div class="page-header">
+    <h1>The Lab Bench</h1>
+    <p class="subtitle">Personal hardware builds, control systems, and systems infrastructure.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="card-grid">
+    
+    <div class="card">
+      <h3>Enterprise Infrastructure Lab</h3>
+      <p>A multi-node virtualization environment leveraging Proxmox for high-availability compute and OPNsense for granular Layer 3 network segmentation. This environment mirrors enterprise-grade security and routing standards.</p>
+      <div class="skill-tags">
+        <span class="tag">Proxmox</span>
+        <span class="tag">VLANs</span>
+        <span class="tag">Layer 3 Routing</span>
+      </div>
+    </div>
+
+    <a href="/projects/argus" class="card-link">
+      <div class="card">
+        <h3>Wireless Signal Audit Rig</h3>
+        <p>Custom portable hardware suite designed for RF spectral analysis and mapping wireless network density. The build focuses on high-gain antenna integration and real-time data visualization of signal environments.</p>
+        <div class="skill-tags">
+          <span class="tag">RF Analysis</span>
+          <span class="tag">Hardware Integration</span>
+          <span class="tag">Signal Processing</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="card">
+      <h3>Automated Hydroponic Control System</h3>
+      <p>An integrated DWC (Deep Water Culture) system utilizing automated feedback loops for pH and nutrient levels. The system demonstrates real-world application of environmental control logic and sensor integration.</p>
+      <div class="skill-tags">
+        <span class="tag">Sensor Fusion</span>
+        <span class="tag">Closed-Loop Control</span>
+        <span class="tag">Embedded Systems</span>
+      </div>
+    </div>
+
+  </div>
 </Layout>
+
+<style>
+/* Card Link Styling */
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  .card-link:hover .card {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+  }
+  .page-header { margin-bottom: 2rem; }
+  .subtitle { font-size: 1.2rem; color: var(--text-muted); }
+  .divider { border: 0; height: 1px; background: #dee2e6; margin: 3rem 0; }
+  
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+  .card { background: var(--card-bg); border: 1px solid #dee2e6; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+  .card h3 { color: var(--accent); margin-top: 0; }
+  .card p { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; }
+  
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag { background: #e9ecef; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
+</style>

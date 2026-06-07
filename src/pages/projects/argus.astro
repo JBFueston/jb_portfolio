@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+
+import argusBuild from '../../assets/lab-bench/argus-internal.JPEG'; 
+import topology from '../../assets/lab-bench/topology.png';
+import wigleBadge from '../../assets/lab-bench/junewigle.png';
+---
+
+<Layout title="Project ARGUS | Lab Bench">
+  <article class="deep-dive">
+    <header>
+      <h1>Project ARGUS</h1>
+      <p class="subtitle">Autonomous RF Geolocation & Unified Sensing</p>
+    </header>
+
+    <section>
+      <h3>System Overview</h3>
+      <p>Project ARGUS is a field-deployed data acquisition platform designed for high-density wireless signal auditing and RF telemetry. Built on a Raspberry Pi 4 compute core, the rig provides a hardened, weather-resistant suite for capturing and geolocating spectral data in dynamic environments.</p>
+      
+      <figure class="project-image">
+        <Image src={argusBuild} alt="Project ARGUS internal build" width={700} />
+        <figcaption>Custom 3D-printed internal mounting trays within the hardened Apache case.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h3>Systems Architecture</h3>
+      <p>The platform utilizes a dual-interface networking strategy. An onboard Wi-Fi Access Point allows for secure, low-latency management access via SSH, ensuring that field operators can monitor system health without interfering with the primary capture interface.</p>
+      
+    <figure class="project-image diagram">
+      <Image src={topology} alt="Project ARGUS Network Topology" />
+      <figcaption>System architecture: Isolated management vs. capture interface.</figcaption>
+    </figure>
+
+      <ul>
+        <li><strong>Compute:</strong> Raspberry Pi 4 running Kali Linux / Kismet</li>
+        <li><strong>Positioning:</strong> NEO-6M GPS Module for precision geotagging</li>
+        <li><strong>RF Capture:</strong> USB High-Gain Wireless Adapter (Monitor Mode)</li>
+        <li><strong>Mechanical:</strong> Custom 3D-printed mounting trays housed in a weather-resistant Apache case.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Project Results & Validation</h3>
+      <p>To validate the performance of the ARGUS data acquisition pipeline, I contribute all captured telemetry to the WiGLE database. This provides independent verification of signal density and ensures my sensor calibration remains consistent with global network standards.</p>
+      
+    <figure class="wigle-badge">
+      <Image src={wigleBadge} alt="Verified WiGLE.net Stats" />
+      <figcaption>Verified data contribution stats via WiGLE.net.</figcaption>
+    </figure>
+    </section>
+
+    <section>
+      <h3>Future Improvements: Multi-Modal Sensing</h3>
+      <p>To evolve ARGUS into a comprehensive telemetry suite, I am currently architecting the following expansions:</p>
+      <ul>
+        <li><strong>ADS-B Sensing:</strong> Integrating an RTL-SDR module and 1090MHz bandpass filter to capture live aircraft transponder telemetry.</li>
+        <li><strong>Bluetooth Auditing:</strong> Implementing dedicated BLE scanning modules to map localized personal area network (PAN) density alongside Wi-Fi signal environments.</li>
+      </ul>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .deep-dive { max-width: 800px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .subtitle { font-size: 1.25rem; color: var(--accent); margin-bottom: 2rem; }
+  section { margin-bottom: 2.5rem; }
+  h3 { color: var(--text-main); border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+  ul { line-height: 1.8; }
+  
+  .project-image { margin: 2rem 0; text-align: center; }
+  .project-image img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #dee2e6; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  
+/* Keep the regular project images (like the case photo) framed */
+  .project-image img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 6px; 
+    border: 1px solid #dee2e6; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  }
+
+  /* Strip the frame off transparent diagrams */
+  .project-image.diagram img {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .wigle-badge { 
+    margin: 1.5rem 0; 
+    text-align: center; 
+  }
+
+  /* Strip the frame off the WiGLE badge */
+  .wigle-badge img { 
+    border: none;
+    box-shadow: none;
+  }
+  
+  figcaption { margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+</style>
