@@ -1,8 +1,5 @@
 ---
 // src/layouts/Layout.astro
-import { Image } from 'astro:assets';
-import logo from '../assets/branding/logo.png'
-
 const { title } = Astro.props;
 ---
 
@@ -10,7 +7,7 @@ const { title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png?v=2" />
     <title>{title} | JB Fueston</title>
   </head>
   <body>
@@ -18,7 +15,7 @@ const { title } = Astro.props;
     <nav class="navbar">
       <div class="nav-container">
         <a href="/" class="brand-container">
-          <Image src={logo} alt="JB Logo" height={42} class="logo-img" />
+          <img src="/favicon.png" alt="JB Logo Icon" class="nav-favicon-img" />
           <div class="brand-text">
             <span class="name">JB Fueston</span>
             <span class="tagline">AEROSPACE ENGINEERING & SYSTEMS</span>
@@ -41,7 +38,7 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-  /* --- GLOBAL CSS --- */
+  /* --- GLOBAL DESIGN SYSTEM TOKENS --- */
   :root {
     --bg-color: #f8f9fa;
     --text-main: #212529;
@@ -84,10 +81,14 @@ const { title } = Astro.props;
     text-decoration: none;
   }
 
-  .logo-img {
-    width: auto;
-    height: 42px;
+  /* Fixed size allocation for the miniature circle logo mark */
+  .nav-favicon-img {
+    width: 50px !important;
+    height: 50px !important;
+    max-width: 50px;
+    max-height: 50px;
     object-fit: contain;
+    flex-shrink: 0;
     display: block;
   }
 
@@ -162,7 +163,6 @@ const { title } = Astro.props;
       width: 100%;
     }
 
-    /* Scales text slightly down on mobile to fit compact screens perfectly */
     .name {
       font-size: 1.15rem;
       text-align: left;
@@ -180,7 +180,6 @@ const { title } = Astro.props;
       margin: 0;
     }
 
-    /* Strips desktop left-margin leak and forces mathematically true centering */
     .nav-links a {
       margin: 0 0.6rem !important; 
       font-size: 0.85rem;

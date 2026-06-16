@@ -20,7 +20,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="skill-tags">
           <span class="tag">Proxmox</span>
           <span class="tag">VLANs</span>
-        <span class="tag">Layer 3 Routing</span>
+          <span class="tag">Layer 3 Routing</span>
         </div>
       </div>
     </a>
@@ -37,25 +37,27 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <div class="card">
-      <h3>Automated Hydroponic Control System</h3>
-      <p>An integrated DWC (Deep Water Culture) system utilizing automated feedback loops for pH and nutrient levels. The system demonstrates real-world application of environmental control logic and sensor integration.</p>
-      <div class="skill-tags">
-        <span class="tag">Sensor Fusion</span>
-        <span class="tag">Closed-Loop Control</span>
-        <span class="tag">Embedded Systems</span>
+    <a href="/projects/aquaponics" class="card-link">
+      <div class="card">
+        <h3>Micro-Aquaponics Proof of Concept</h3>
+        <p>A low-footprint, biological engineering setup designed to evaluate manual ecosystem balancing, passive nutrient conversion cycles, and vertical canopy constraints within tight physical living spaces.</p>
+        <div class="skill-tags">
+          <span class="tag">Passive System Design</span>
+          <span class="tag">Nutrient Cycling</span>
+          <span class="tag">Spatial Optimization</span>
+        </div>
       </div>
-    </div>
+    </a>
 
   </div>
 </Layout>
 
 <style>
-/* Card Link Styling */
+  /* Card Link Styling */
   .card-link {
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
   }
   .card-link:hover .card {
     transform: translateY(-5px);
@@ -66,10 +68,10 @@ import Layout from '../layouts/Layout.astro';
   .divider { border: 0; height: 1px; background: #dee2e6; margin: 3rem 0; }
   
   .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-  .card { background: var(--card-bg); border: 1px solid #dee2e6; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+  .card { background: var(--card-bg); border: 1px solid #dee2e6; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
   .card h3 { color: var(--accent); margin-top: 0; }
-  .card p { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; }
+  .card p { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
   
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; }
   .tag { background: #e9ecef; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
 </style>

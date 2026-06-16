@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Micro-Aquaponics POC | Lab Bench">
+  <article class="deep-dive">
+    <header>
+      <h1>Closed-Loop Micro-Aquaponics Proof of Concept</h1>
+      <p class="subtitle">Space-Constrained Biological System Design & Nutrient Cycling</p>
+    </header>
+
+    <section>
+      <h3>Project Abstract</h3>
+      <p>This project serves as a low-footprint, biological engineering proof of concept designed to maximize nutrient efficiency within severe spatial constraints. Operating inside a high-density living environment, the system demonstrates successful macronutrient extraction from aquatic waste arrays to support vertical hydroponic plant growth without relying on commercial chemical fertilizers.</p>
+    </section>
+
+    <section>
+      <h3>System Design Parameters</h3>
+      <div class="specs-grid">
+        <div class="spec-card">
+          <strong>Spatial Footprint</strong>
+          <p>Ultra-compact 10-gallon baseline fluid footprint optimized for vertical stack integration.</p>
+        </div>
+        <div class="spec-card">
+          <strong>Methodology</strong>
+          <p>Continuous-loop Deep Water Culture (DWC) utilizing bio-filtration mechanics.</p>
+        </div>
+        <div class="spec-card">
+          <strong>Control Schema</strong>
+          <p>Passive system design utilizing manual baseline testing and natural chemical balancing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3>Engineering Core Constraints</h3>
+      <ul>
+        <li>
+          <strong>Volumetric Packaging:</strong> Built explicitly to fit within highly restricted indoor spaces. The layout optimizes vertical head height to achieve an efficient ratio of plant cultivation canopy to total active water volume.
+        </li>
+        <li>
+          <strong>Biological Nutrient Filtration:</strong> Rather than relying on an electronic sensor network, the infrastructure leverages mechanical flow design and selective bacterial colonization to convert toxic aquaculture byproducts (ammonia/nitrites) into highly bioavailable plant nutrients (nitrates).
+        </li>
+        <li>
+          <strong>Resource Efficiency Management:</strong> Designed around a low-power fluid loop to evaluate the minimum hydraulic and energy requirements necessary to maintain continuous dissolved oxygen distribution across the plant root zones.
+        </li>
+      </ul>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .deep-dive { max-width: 800px; margin: 0 auto; padding: 1rem 0; }
+  h1 { font-size: 2.3rem; margin-bottom: 0.5rem; color: var(--brand-dark); line-height: 1.2; }
+  .subtitle { font-size: 1.2rem; color: var(--brand-light); margin-bottom: 2.5rem; font-weight: 500; }
+  section { margin-bottom: 2.5rem; }
+  h3 { color: var(--text-main); border-bottom: 2px solid #dee2e6; padding-bottom: 0.5rem; font-size: 1.3rem; }
+  
+  /* Specs Grid Styling */
+  .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .spec-card { background: var(--card-bg); padding: 1rem; border: 1px solid #dee2e6; border-radius: 4px; }
+  .spec-card strong { color: var(--brand-dark); display: block; margin-bottom: 0.25rem; font-size: 0.95rem; }
+  .spec-card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+  ul { line-height: 1.8; margin-top: 1rem; padding-left: 1.2rem; }
+  li { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--brand-dark); }
+</style>
