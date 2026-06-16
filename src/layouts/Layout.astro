@@ -1,5 +1,8 @@
 ---
 // src/layouts/Layout.astro
+import { Image } from 'astro:assets';
+import logo from '../assets/branding/logo.png';
+
 const { title } = Astro.props;
 ---
 
@@ -7,16 +10,25 @@ const { title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | Jon Fueston</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.png" />
+    <title>{title} | JB Fueston</title>
   </head>
   <body>
     
     <nav class="navbar">
       <div class="nav-container">
-        <a href="/" class="nav-logo">JF.</a>
+        <a href="/" class="brand-container">
+          <Image src={logo} alt="JB Logo" height={42} class="logo-img" />
+          <div class="brand-text">
+            <span class="name">JB Fueston</span>
+            <span class="tagline">AEROSPACE ENGINEERING & SYSTEMS</span>
+          </div>
+        </a>
+        
         <div class="nav-links">
           <a href="/academics">Academic Work</a>
           <a href="/lab-bench">The Lab Bench</a>
+          <a href="/field-ops">Field Operations</a> 
         </div>
       </div>
     </nav>
@@ -36,6 +48,8 @@ const { title } = Astro.props;
     --text-muted: #495057;
     --accent: #0056b3;
     --card-bg: #ffffff;
+    --brand-dark: #0b3c5d; 
+    --brand-light: #328cc1; 
   }
 
   body {
@@ -46,16 +60,82 @@ const { title } = Astro.props;
     line-height: 1.6;
   }
 
-  /* Navigation Styles */
-  .navbar { background: var(--card-bg); border-bottom: 1px solid #dee2e6; padding: 1rem 0; }
-  .nav-container { max-width: 800px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
-  .nav-logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--text-main); }
-  .nav-links a { margin-left: 1.5rem; text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
-  .nav-links a:hover { color: var(--accent); }
+  /* --- FIXED NAVIGATION CSS --- */
+  .navbar { 
+    background: var(--card-bg); 
+    border-bottom: 1px solid #dee2e6; 
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+  
+  .nav-container { 
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 0 2rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .brand-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    min-width: max-content; /* Stops text from wrapping/stacking weirdly */
+  }
 
-  /* Layout */
+  .logo-img {
+    width: auto;
+    height: 42px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    line-height: 1.1;
+    display: block;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--brand-light);
+    margin-top: 0.15rem;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links a { 
+    margin-left: 1.5rem; 
+    text-decoration: none; 
+    color: var(--text-muted); 
+    font-weight: 500; 
+    font-size: 0.95rem; 
+    white-space: nowrap; /* Prevents menu links from wrapping down */
+  }
+  
+  .nav-links a:hover { 
+    color: var(--accent); 
+  }
+
+  /* Layout container */
   .container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
   
-  /* Shared Typography & Elements */
+  /* Elements */
   .divider { border: 0; height: 1px; background: #dee2e6; margin: 3rem 0; }
 </style>

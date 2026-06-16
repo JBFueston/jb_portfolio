@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import homelabDiagram from '../../assets/lab-bench/homelab-topology.png';
+---
+
+<Layout title="Enterprise Homelab | Lab Bench">
+  <article class="deep-dive">
+    <header>
+      <h1>Enterprise Infrastructure Lab</h1>
+      <p class="subtitle">Custom Routing, Network Segmentation, and Secure Remote Access</p>
+    </header>
+
+    <section>
+      <h3>Security Motivation</h3>
+      <p>This infrastructure was architected in response to the inherent security risks of shared apartment Wi-Fi. Recognizing that standard consumer routers lack the granular control required to protect local devices, I designed a private, segmented network that prioritizes data integrity and absolute control over traffic flow.</p>
+    </section>
+
+    <section>
+      <h3>System Architecture</h3>
+      <figure class="project-image diagram">
+        <Image src={homelabDiagram} alt="Homelab System Topology" />
+        <figcaption>Network architecture: Security-hardened infrastructure with segmented VLANs and encrypted remote access.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h3>Core Routing & Security Fabric</h3>
+      <p>The backbone moves away from consumer routing, utilizing dedicated hardware for deep packet inspection and network-wide DNS filtering.</p>
+      <ul>
+        <li><strong>Gateway / Firewall (OPNsense):</strong> A dedicated Dell OptiPlex appliance handles all inter-VLAN routing, enforcing strict firewall rules between the trusted and untrusted IoT zones.</li>
+        <li><strong>DNS Sinkhole (Pi-hole):</strong> Network-wide ad-blocking and telemetry interception occur at the DNS layer, ensuring no device leaks data outside the network.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Secure Remote Access</h3>
+      <p>To maintain 24/7 visibility without exposing ports to the public internet, I implemented an encrypted <strong>Tailscale (WireGuard)</strong> overlay.</p>
+      <ul>
+        <li><strong>Subnet Routing:</strong> The OPNsense gateway is configured as a Tailscale Subnet Router, providing authenticated, seamless access to the entire internal 10.0.1.0/24 range from any remote location.</li>
+        <li><strong>Zero-Trust Policy:</strong> This avoids the vulnerabilities associated with traditional port forwarding, keeping the management stack behind an encrypted tunnel.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Network Segmentation & IoT Hardening</h3>
+      <p>The lab employs a "Zero-Trust" approach to IoT devices, which are treated as inherently untrusted due to their limited security patching.</p>
+      <ul>
+        <li><strong>VLAN Isolation:</strong> IoT traffic is strictly restricted to a dedicated VLAN, preventing these devices from communicating with the core trusted network.</li>
+        <li><strong>Egress Filtering:</strong> I have implemented strict OPNsense firewall rules that limit IoT device traffic to only the specific endpoints required for operation, preventing unauthorized "phone-home" telemetry or lateral movement.</li>
+      </ul>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .deep-dive { max-width: 800px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .subtitle { font-size: 1.25rem; color: var(--accent); margin-bottom: 2rem; }
+  section { margin-bottom: 2.5rem; }
+  h3 { color: var(--text-main); border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+  ul { line-height: 1.8; margin-top: 1rem; }
+  li { margin-bottom: 0.75rem; }
+  
+  .project-image { margin: 2rem 0; text-align: center; }
+  .project-image.diagram img { border: none; box-shadow: none; border-radius: 0; max-width: 100%; height: auto; }
+  
+  figcaption { margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+</style>
