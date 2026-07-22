@@ -3,32 +3,35 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="The Lab Bench">
-  
   <div class="page-header">
     <h1>The Lab Bench</h1>
-    <p class="subtitle">Personal hardware builds, control systems, and systems infrastructure.</p>
+    <p class="subtitle">Personal hardware builds, control systems, and enterprise infrastructure.</p>
   </div>
 
   <hr class="divider" />
 
   <div class="card-grid">
-    
+
+    <!-- PROXMOX & INFRASTRUCTURE CARD -->
     <a href="/projects/homelab" class="card-link">
       <div class="card">
-        <h3>Proxmox Infrastructure</h3>
-        <p>A multi-node virtualization environment leveraging Proxmox for high-availability compute and OPNsense for granular Layer 3 network segmentation. This environment mirrors enterprise-grade security and routing standards.</p>
+        <h3>Proxmox Infrastructure & Edge Compute</h3>
+        <p>A virtualized compute node hosting Home Assistant OS, Ollama LLMs (Qwen), and self-hosted services behind NGINX (*.lab.jbfueston.com). Network traffic is governed via Router-on-a-Stick 802.1Q VLAN trunking and OPNsense firewalling.</p>
         <div class="skill-tags">
-          <span class="tag">Proxmox</span>
-          <span class="tag">VLANs</span>
-          <span class="tag">Layer 3 Routing</span>
+          <span class="tag">Proxmox VE</span>
+          <span class="tag">Home Assistant</span>
+          <span class="tag">Local AI (Qwen)</span>
+          <span class="tag">Router-on-a-Stick</span>
+          <span class="tag">VLAN 10/99</span>
         </div>
       </div>
     </a>
-    
+
+    <!-- WIRELESS SIGNAL AUDIT RIG CARD -->
     <a href="/projects/argus" class="card-link">
       <div class="card">
         <h3>Wireless Signal Audit Rig</h3>
-        <p>Custom portable hardware suite designed for RF spectral analysis and mapping wireless network density. The build focuses on high-gain antenna integration and real-time data visualization of signal environments.</p>
+        <p>Custom portable hardware suite designed for RF spectral analysis and mapping wireless network density. The build focuses on high-gain antenna integration and real-time data visualization.</p>
         <div class="skill-tags">
           <span class="tag">RF Analysis</span>
           <span class="tag">Hardware Integration</span>
@@ -37,41 +40,70 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/projects/aquaponics" class="card-link">
-      <div class="card">
-        <h3>Micro-Aquaponics Proof of Concept</h3>
-        <p>A low-footprint, biological engineering setup designed to evaluate manual ecosystem balancing, passive nutrient conversion cycles, and vertical canopy constraints within tight physical living spaces.</p>
-        <div class="skill-tags">
-          <span class="tag">Passive System Design</span>
-          <span class="tag">Nutrient Cycling</span>
-          <span class="tag">Spatial Optimization</span>
-        </div>
-      </div>
-    </a>
-
   </div>
 </Layout>
 
 <style>
-  /* Card Link Styling */
+  .page-header { margin-bottom: 1.5rem; }
+  h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
+  .subtitle { font-size: 1.1rem; color: var(--text-muted); }
+  .divider { border: 0; height: 1px; background: #eee; margin: 2rem 0; }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
   .card-link {
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    display: block;
   }
-  .card-link:hover .card {
-    transform: translateY(-5px);
-    border-color: var(--accent);
+
+  .card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .page-header { margin-bottom: 2rem; }
-  .subtitle { font-size: 1.2rem; color: var(--text-muted); }
-  .divider { border: 0; height: 1px; background: #dee2e6; margin: 3rem 0; }
-  
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-  .card { background: var(--card-bg); border: 1px solid #dee2e6; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
-  .card h3 { color: var(--accent); margin-top: 0; }
-  .card p { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-  
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; }
-  .tag { background: #e9ecef; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+    font-size: 1.25rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: #f0f4f8;
+    color: #0b3c5d;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
 </style>

@@ -8,46 +8,67 @@ import homelabDiagram from '../../assets/lab-bench/homelab-topology.png';
   <article class="deep-dive">
     <header>
       <h1>Enterprise Infrastructure Lab</h1>
-      <p class="subtitle">Custom Routing, Network Segmentation, and Secure Remote Access</p>
+      <p class="subtitle">Router-on-a-Stick VLAN Trunking, Proxmox VE, and AI-Driven Automation</p>
     </header>
 
     <section>
       <h3>Security Motivation</h3>
-      <p>This infrastructure was architected in response to the inherent security risks of shared apartment Wi-Fi. Recognizing that standard consumer routers lack the granular control required to protect local devices, I designed a private, segmented network that prioritizes data integrity and absolute control over traffic flow.</p>
+      <p>This infrastructure was architected in response to the inherent security risks of shared apartment Wi-Fi. Recognizing that standard consumer routers lack the granular control required to protect local devices, I designed a private, segmented network that prioritizes data integrity, local AI compute, and absolute control over traffic flow.</p>
     </section>
 
     <section>
       <h3>System Architecture</h3>
       <figure class="project-image diagram">
         <Image src={homelabDiagram} alt="Homelab System Topology" />
-        <figcaption>Network architecture: Security-hardened infrastructure with segmented VLANs and encrypted remote access.</figcaption>
+        <figcaption>Network architecture: Layer 2 Aruba core switch enforcing Router-on-a-Stick 802.1Q VLAN tagging to OPNsense, Proxmox compute, and isolated IoT endpoints.</figcaption>
       </figure>
     </section>
 
     <section>
-      <h3>Core Routing & Security Fabric</h3>
-      <p>The backbone moves away from consumer routing, utilizing dedicated hardware for deep packet inspection and network-wide DNS filtering.</p>
+      <h3>Core Routing & Router-on-a-Stick Fabric</h3>
+      <p>The backbone relies on an <strong>Aruba S3500 Enterprise Switch</strong> acting as the central Layer 2 distribution hub using a Router-on-a-Stick topology.</p>
       <ul>
-        <li><strong>Gateway / Firewall (OPNsense):</strong> A dedicated Dell OptiPlex appliance handles all inter-VLAN routing, enforcing strict firewall rules between the trusted and untrusted IoT zones.</li>
+        <li><strong>Physical Port Tagging & WAN Ingress:</strong> Raw ISP WAN traffic enters directly into an isolated WAN-tagged port on the Aruba switch, which trunks the traffic up to the firewall gateway.</li>
+        <li><strong>Gateway / Firewall (OPNsense):</strong> A dedicated Dell OptiPlex appliance processes WAN, inter-VLAN routing, and strict firewall policies over a single 802.1Q trunk interface.</li>
         <li><strong>DNS Sinkhole (Pi-hole):</strong> Network-wide ad-blocking and telemetry interception occur at the DNS layer, ensuring no device leaks data outside the network.</li>
       </ul>
     </section>
 
     <section>
-      <h3>Secure Remote Access</h3>
-      <p>To maintain 24/7 visibility without exposing ports to the public internet, I implemented an encrypted <strong>Tailscale (WireGuard)</strong> overlay.</p>
+      <h3>Core Compute & Virtualization Stack</h3>
+      <p>At the center of the trusted network is a high-availability <strong>Proxmox VE</strong> compute node hosting virtual machines and LXC containers for localized processing and edge routing.</p>
       <ul>
-        <li><strong>Subnet Routing:</strong> The OPNsense gateway is configured as a Tailscale Subnet Router, providing authenticated, seamless access to the entire internal 10.0.1.0/24 range from any remote location.</li>
-        <li><strong>Zero-Trust Policy:</strong> This avoids the vulnerabilities associated with traditional port forwarding, keeping the management stack behind an encrypted tunnel.</li>
+        <li><strong>Virtual Machines (VMs):</strong>
+          <ul>
+            <li><strong>Home Assistant OS:</strong> Centralized IoT engine orchestrating localized climate control (humidifier, ESP32 temperature monitoring), fabrication hardware (3D printer monitoring and controls), media devices (Roku, Xbox), and smart plug power metrics.</li>
+            <li><strong>Ollama LLM Instance:</strong> Dedicated virtual machine hosting local, air-gapped Large Language Models. Runs the <strong>Qwen</strong> model, which interfaces directly with Home Assistant to enable local, private natural language device control.</li>
+          </ul>
+        </li>
+        <li><strong>LXC Containers (CTs):</strong>
+          <ul>
+            <li><strong>NGINX Proxy Manager:</strong> Edge reverse proxy managing SSL encryption and routing internal traffic across custom wildcard domains under <code>*.lab.jbfueston.com</code>.</li>
+            <li><strong>Actual Budget:</strong> Self-hosted, end-to-end encrypted personal finance ledger.</li>
+          </ul>
+        </li>
       </ul>
     </section>
 
     <section>
-      <h3>Network Segmentation & IoT Hardening</h3>
-      <p>The lab employs a "Zero-Trust" approach to IoT devices, which are treated as inherently untrusted due to their limited security patching.</p>
+      <h3>Secure Remote Access & Ingress</h3>
+      <p>To maintain 24/7 visibility without exposing management ports directly to the public internet, I implemented a hybrid access strategy combining encrypted tunnels with internal proxying.</p>
       <ul>
-        <li><strong>VLAN Isolation:</strong> IoT traffic is strictly restricted to a dedicated VLAN, preventing these devices from communicating with the core trusted network.</li>
-        <li><strong>Egress Filtering:</strong> I have implemented strict OPNsense firewall rules that limit IoT device traffic to only the specific endpoints required for operation, preventing unauthorized "phone-home" telemetry or lateral movement.</li>
+        <li><strong>Subnet Routing (Tailscale / WireGuard):</strong> The OPNsense gateway operates as a Tailscale Subnet Router, providing zero-trust, authenticated access to internal subnets from remote devices.</li>
+        <li><strong>Internal Wildcard Routing:</strong> Internal services are cleanly addressed via custom DNS entries pointing to the local NGINX proxy, giving edge services dedicated <code>*.lab.jbfueston.com</code> endpoints.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Physical Port VLAN Hardening</h3>
+      <p>The network enforces physical port-based 802.1Q segregation directly at the Aruba switch level to isolate unsafe hardware from core compute resources.</p>
+      <ul>
+        <li><strong>VLAN 10 (Trusted Network):</strong> Contains primary compute nodes, administrative interfaces, and trusted personal endpoints.</li>
+        <li><strong>VLAN 99 (Unsafe / IoT Network):</strong> Sandboxed IoT zone mapped to physical ports housing smart plugs, 3D printer telemetry, media boxes, and ESP32 microcontrollers.</li>
+        <li><strong>Egress & Inter-VLAN Rules:</strong> OPNsense firewall rules strictly limit IoT devices on VLAN 99 from initiating connections to VLAN 10 or unauthorized external endpoints.</li>
       </ul>
     </section>
   </article>
@@ -55,12 +76,14 @@ import homelabDiagram from '../../assets/lab-bench/homelab-topology.png';
 
 <style>
   .deep-dive { max-width: 800px; margin: 0 auto; padding: 2rem; }
-  h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-  .subtitle { font-size: 1.25rem; color: var(--accent); margin-bottom: 2rem; }
+  h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
+  .subtitle { font-size: 1.25rem; color: var(--accent); margin-bottom: 2rem; font-weight: 600; }
   section { margin-bottom: 2.5rem; }
-  h3 { color: var(--text-main); border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
-  ul { line-height: 1.8; margin-top: 1rem; }
-  li { margin-bottom: 0.75rem; }
+  h3 { color: var(--text-main); border-bottom: 2px solid #eee; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  ul { line-height: 1.8; margin-top: 0.5rem; padding-left: 1.25rem; }
+  ul ul { margin-top: 0.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.5rem; color: var(--text-main); }
+  code { background: #eef4f8; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; color: var(--accent); }
   
   .project-image { margin: 2rem 0; text-align: center; }
   .project-image.diagram img { border: none; box-shadow: none; border-radius: 0; max-width: 100%; height: auto; }
