@@ -37,7 +37,7 @@ import ndboundarylayer from '/src/assets/academics/ndboundarylayer.jpg';
       <p>I developed a comprehensive MATLAB simulation framework to solve the exact equations of motion. For the torque-free rigid body, the script simulated both exact equilibrium and perturbed trajectories across the major, minor, and intermediate axes. To ensure physical realism, I implemented a validation layer that continuously calculated Kinetic Energy (<em>T</em>) and Angular Momentum magnitude squared (||<em>H</em>||<sup>2</sup>), proving conservation laws were maintained throughout the integration.</p>
 
       <h3>Implementation Highlight: Custom ODE Constraints</h3>
-      <p>For the spinning top simulation, the physical constraints dictated that the integration should stop if the top "fell" past a certain angle. Rather than running a blind simulation and trimming the data afterward, I integrated a custom event-tracking function directly into MATLAB's ode45 solver to halt execution the exact millisecond the nutation angle (&theta;) reached 95 degrees.</p>
+      <p>For the spinning top simulation, the physical constraints dictated that the integration should stop if the top "fell" past a certain angle. Rather than running a blind simulation and trimming the data afterward, I integrated a custom event-tracking function directly into MATLAB's ode45 solver to halt execution when the nutation angle (&theta;) reached 95 degrees.</p>
 
       <div class="code-window">
         <div class="code-header">
@@ -64,7 +64,7 @@ end
       </div>
 
       <h3>The Result</h3>
-      <p>The simulation successfully mapped the stability profiles of all three principal axes and accurately modeled the non-linear nutation of the heavy top. By explicitly separating handwritten physics logic from AI-assisted data visualization routines, the project maintained absolute academic integrity while delivering highly polished, professional-grade telemetry plots.</p>
+      <p>The simulation successfully mapped the stability profiles of all three principal axes and accurately modeled the non-linear nutation of the heavy top.</p>
             <a href="/downloads/AE426_Final_Report.pdf" class="btn-secondary" target="_blank" rel="noopener noreferrer">
               View Full Technical Report (PDF) &rarr;
             </a>
@@ -129,7 +129,7 @@ largest_eddy_freq = f_Welch(max_idx + 1);
       </div>
 
       <h3>The Result</h3>
-      <p>The code successfully characterized the flow, calculating a free stream velocity of 15.07 m/s, a skin friction coefficient of 0.0027, and isolating the largest turbulent eddy frequency at 6.10 Hz. The data reduction pipeline proved that the experimental wind tunnel data definitively matched theoretical turbulent flow models.</p>
+      <p>The code successfully characterized the flow, calculating a free stream velocity of 15.07 m/s, a skin friction coefficient of 0.0027, and isolating the largest turbulent eddy frequency at 6.10 Hz. The data reduction pipeline proved that the experimental wind tunnel data agreed closely with theoretical turbulent flow models.</p>
                   <a href="/downloads/AE314_BL.pdf" class="btn-secondary" target="_blank" rel="noopener noreferrer">
               View Full Published Code (PDF) &rarr;
             </a>
